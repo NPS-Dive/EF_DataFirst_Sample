@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_EF_DataFirstModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Apprentice">
+    <Key>
+      <PropertyRef Name="ApprenticeID" />
+    </Key>
+    <Property Name="ApprenticeID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ApprenticeCode" Type="Int64" />
+    <Property Name="ApprenticeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ApprenticeFamily" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ApprenticeAge" Type="Byte" />
+    <NavigationProperty Name="CourseSelects" Relationship="Self.FK_CourseSelect_Apprentice" FromRole="Apprentice" ToRole="CourseSelect" />
+  </EntityType>
+  <EntityType Name="Course">
+    <Key>
+      <PropertyRef Name="CourseID" />
+    </Key>
+    <Property Name="CourseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CourseTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CourseUnits" Type="Byte" />
+    <NavigationProperty Name="CourseSelects" Relationship="Self.FK_CourseSelect_Course" FromRole="Course" ToRole="CourseSelect" />
+  </EntityType>
+  <EntityType Name="CourseSelect">
+    <Key>
+      <PropertyRef Name="CoSeID" />
+    </Key>
+    <Property Name="CoSeID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CoSeDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="CoseScore" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="FK_ApprenticeID" Type="Int64" />
+    <Property Name="FK_CourseID" Type="Int32" />
+    <NavigationProperty Name="Apprentice" Relationship="Self.FK_CourseSelect_Apprentice" FromRole="CourseSelect" ToRole="Apprentice" />
+    <NavigationProperty Name="Course" Relationship="Self.FK_CourseSelect_Course" FromRole="CourseSelect" ToRole="Course" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_CourseSelect_Apprentice">
+    <End Role="Apprentice" Type="Self.Apprentice" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CourseSelect" Type="Self.CourseSelect" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Apprentice">
+        <PropertyRef Name="ApprenticeID" />
+      </Principal>
+      <Dependent Role="CourseSelect">
+        <PropertyRef Name="FK_ApprenticeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseSelect_Course">
+    <End Role="Course" Type="Self.Course" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CourseSelect" Type="Self.CourseSelect" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CourseID" />
+      </Principal>
+      <Dependent Role="CourseSelect">
+        <PropertyRef Name="FK_CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_EF_DataFirstEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Apprentices" EntityType="Self.Apprentice" />
+    <EntitySet Name="Courses" EntityType="Self.Course" />
+    <EntitySet Name="CourseSelects" EntityType="Self.CourseSelect" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_CourseSelect_Apprentice" Association="Self.FK_CourseSelect_Apprentice">
+      <End Role="Apprentice" EntitySet="Apprentices" />
+      <End Role="CourseSelect" EntitySet="CourseSelects" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseSelect_Course" Association="Self.FK_CourseSelect_Course">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="CourseSelect" EntitySet="CourseSelects" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(DB_EF_DataFirstModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(DB_EF_DataFirstModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="sp_GetListApprentice" ReturnType="Collection(DB_EF_DataFirstModel.sp_GetListApprentice_Result)" />
+    <FunctionImport Name="sp_GetListApprentice01" ReturnType="Collection(DB_EF_DataFirstModel.sp_GetListApprentice01_Result)" />
+    <FunctionImport Name="sp_GetListApprenticeID" ReturnType="Collection(DB_EF_DataFirstModel.sp_GetListApprenticeID_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetNumber" ReturnType="Collection(Int32)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_GetListApprentice_Result">
+    <Property Type="Int64" Name="ApprenticeID" Nullable="false" />
+    <Property Type="Int64" Name="ApprenticeCode" Nullable="true" />
+    <Property Type="String" Name="ApprenticeName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ApprenticeFamily" Nullable="true" MaxLength="50" />
+    <Property Type="Byte" Name="ApprenticeAge" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_GetListApprentice01_Result">
+    <Property Type="String" Name="ApprenticeName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ApprenticeFamily" Nullable="true" MaxLength="50" />
+    <Property Type="Byte" Name="ApprenticeAge" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_GetListApprenticeID_Result">
+    <Property Type="String" Name="ApprenticeName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ApprenticeFamily" Nullable="true" MaxLength="50" />
+    <Property Type="Byte" Name="ApprenticeAge" Nullable="true" />
+  </ComplexType>
+</Schema>

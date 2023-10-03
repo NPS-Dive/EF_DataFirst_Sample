@@ -1,0 +1,15 @@
+E:\Computer\DotNet\C#- Heilton\08_Entity_FrameWork\Practice_02\EF_DataFirst\bin\Debug\EF_DataFirst.exe.config
+E:\Computer\DotNet\C#- Heilton\08_Entity_FrameWork\Practice_02\EF_DataFirst\bin\Debug\EF_DataFirst.exe
+E:\Computer\DotNet\C#- Heilton\08_Entity_FrameWork\Practice_02\EF_DataFirst\bin\Debug\EF_DataFirst.pdb
+E:\Computer\DotNet\C#- Heilton\08_Entity_FrameWork\Practice_02\EF_DataFirst\bin\Debug\EntityFramework.dll
+E:\Computer\DotNet\C#- Heilton\08_Entity_FrameWork\Practice_02\EF_DataFirst\bin\Debug\EntityFramework.SqlServer.dll
+E:\Computer\DotNet\C#- Heilton\08_Entity_FrameWork\Practice_02\EF_DataFirst\bin\Debug\EntityFramework.xml
+E:\Computer\DotNet\C#- Heilton\08_Entity_FrameWork\Practice_02\EF_DataFirst\bin\Debug\EntityFramework.SqlServer.xml
+E:\Computer\DotNet\C#- Heilton\08_Entity_FrameWork\Practice_02\EF_DataFirst\obj\Debug\EF_DataFirst.csproj.AssemblyReference.cache
+E:\Computer\DotNet\C#- Heilton\08_Entity_FrameWork\Practice_02\EF_DataFirst\obj\Debug\EF_DataFirst.Form1.resources
+E:\Computer\DotNet\C#- Heilton\08_Entity_FrameWork\Practice_02\EF_DataFirst\obj\Debug\EF_DataFirst.Properties.Resources.resources
+E:\Computer\DotNet\C#- Heilton\08_Entity_FrameWork\Practice_02\EF_DataFirst\obj\Debug\EF_DataFirst.csproj.GenerateResource.cache
+E:\Computer\DotNet\C#- Heilton\08_Entity_FrameWork\Practice_02\EF_DataFirst\obj\Debug\EF_DataFirst.csproj.CoreCompileInputs.cache
+E:\Computer\DotNet\C#- Heilton\08_Entity_FrameWork\Practice_02\EF_DataFirst\obj\Debug\EF_DataFirst.csproj.CopyComplete
+E:\Computer\DotNet\C#- Heilton\08_Entity_FrameWork\Practice_02\EF_DataFirst\obj\Debug\EF_DataFirst.exe
+E:\Computer\DotNet\C#- Heilton\08_Entity_FrameWork\Practice_02\EF_DataFirst\obj\Debug\EF_DataFirst.pdb
